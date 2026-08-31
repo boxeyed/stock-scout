@@ -5,7 +5,8 @@ CREATE TABLE securities IF NOT EXISTS (
     market_cap INTEGER,
     pe_ratio DOUBLE,
     exchange TEXT,
-    date DATE
+    date DATE,
+    screening_status TEXT
 );
 
 CREATE TABLE sectors IF NOT EXISTS (
