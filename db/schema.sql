@@ -8,6 +8,7 @@ CREATE TABLE securities IF NOT EXISTS (
     pe_ratio DOUBLE,
     exchange TEXT,
     date DATE,
+    current_price, DOUBLE
     screening_status TEXT
 );
 
