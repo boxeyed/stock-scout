@@ -7,3 +7,14 @@ CREATE TABLE securities IF NOT EXISTS (
     exchange TEXT,
     date DATE
 );
+
+CREATE TABLE sectors IF NOT EXISTS (
+    id INTEGER AUTOINCREMENT PRIMARY KEY,
+    sector_name TEXT NOT NULL UNIQUE
+);
+
+CREATE TABLE security_x_sector IF NOT EXISTS(
+    security_id INTEGER NOT NULL,
+    sector_id INTEGER NOT NULL,
+    PRIMARY KEY (security_id, sector_id)
+);
