@@ -1,3 +1,5 @@
+-- Similar shape to lab scout, reassess need for changes after basic handling completed.
+
 CREATE TABLE securities IF NOT EXISTS (
     id INTEGER AUTOINCREMENT PRIMARY KEY,
     ticker TEXT NOT NULL UNIQUE,
