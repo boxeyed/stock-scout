@@ -17,4 +17,6 @@ CREATE TABLE security_x_sector IF NOT EXISTS(
     security_id INTEGER NOT NULL,
     sector_id INTEGER NOT NULL,
     PRIMARY KEY (security_id, sector_id)
+    FOREIGN KEY (security_id) REFERENCES securities(id) ON DELETE CASCADE,
+    FOREIGN KEY (sector_id) REFERENCES sectors(id) ON DELETE CASCADE
 );
