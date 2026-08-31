@@ -20,6 +20,7 @@ def setup_db(connection: sqlite3.Connection):
   with open(SCHEMA) as p:
      cursor.executescript(p.read)
 
+  connection.commit()
 
 def display_db():
   """Display DB values through console"""
