@@ -8,7 +8,7 @@ CREATE TABLE securities IF NOT EXISTS (
     exchange TEXT,
     last_updated DATE,
     current_price, DOUBLE
-    screening_status TEXT
+    screening_status TEXT DEFAULT "Watching"
 );
 
 CREATE TABLE sectors IF NOT EXISTS (
