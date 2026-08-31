@@ -3,6 +3,14 @@ import sqlite3
 import pandas as pd
 import numpy as np
 
+DATABASE = "scout.db"
+WATCHLIST = "watchlist.csv"
+
+def get_connection():
+    connection = sqlite3.connect(DATABASE)
+    connection.row_factory = sqlite3.Row
+    connection.execute("PRAGMA foreign_keys = ON")
+    return connection
 
 def setup_db():
   """Establish connection to DB and setup"""
