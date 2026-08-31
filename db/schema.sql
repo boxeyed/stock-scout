@@ -5,9 +5,8 @@ CREATE TABLE securities IF NOT EXISTS (
     ticker TEXT NOT NULL UNIQUE,
     company_name TEXT,
     market_cap INTEGER,
-    pe_ratio DOUBLE,
     exchange TEXT,
-    date DATE,
+    last_updated DATE,
     current_price, DOUBLE
     screening_status TEXT
 );
