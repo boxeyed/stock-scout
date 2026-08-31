@@ -4,14 +4,16 @@ import pandas as pd
 import numpy as np
 
 
-
 def setup_db():
+  """Establish connection to DB and setup"""
   return 0
 
-def access_db():
+def display_db():
+  """Display DB values through console"""
   return 0
 
 def migrate_watchlist():
+   """Migrate data from values in watchlist to the DB"""
    return 0
 
 def main():
