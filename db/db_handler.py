@@ -5,6 +5,7 @@ import numpy as np
 
 DATABASE = "scout.db"
 WATCHLIST = "watchlist.csv"
+SCHEMA = "schema.sql"
 
 def get_connection():
     connection = sqlite3.connect(DATABASE)
@@ -12,9 +13,13 @@ def get_connection():
     connection.execute("PRAGMA foreign_keys = ON")
     return connection
 
-def setup_db():
+def setup_db(connection: sqlite3.Connection):
   """Establish connection to DB and setup"""
-  return 0
+  cursor = connection.cursor()
+
+  with open(SCHEMA) as p:
+     cursor.executescript(p.read)
+
 
 def display_db():
   """Display DB values through console"""
