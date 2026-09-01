@@ -71,6 +71,17 @@ def migrate_watchlist(connection: sqlite3.Connection):
    return inserted
 
 def refresh_data(connection: sqlite3.Connection):
+   """Pull data from yfinance to populate current_price and market_cap for each ticker in db."""
+   refreshed = 0
+   tickers = {row["ticker"] for row in connection.execute("SELECT ticker FROM securities")}
+
+   for ticker in tickers:
+      refresh = yf.Ticker(ticker).fast_info
+      latest_price = refresh.get("currentPrice")
+      market_cap = refresh.get("marketCap")
+      last_updated = refresh.get("regularMarketTime")
+
+      connection.execute("UPDATE securities (latest_price, market_cap, last_updated) VALUES (?, ?, ?)",(latest_price, market_cap, last_updated))
    return 0 
 
 
