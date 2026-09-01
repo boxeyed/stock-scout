@@ -26,9 +26,31 @@ def display_db():
   """Display DB values through console"""
   return 0
 
-def migrate_watchlist():
-   """Migrate data from values in watchlist to the DB"""
-   return 0
+def migrate_watchlist(connection: sqlite3.Connection):
+   """Migrate data from values in watchlist (csv) to the DB"""
+
+   df = pd.read_csv(WATCHLIST)
+   inserted = 0 # keeps track of count of inserted data vals
+
+   existing_tickers = {row["ticker"] for row in connection.execute("SELECT ticker FROM securities")}
+
+   for _, row in df.iterrows():
+
+        # to 'securities' table
+        ticker: str = row["Ticker"]
+        if ticker in existing_tickers:  # checks the data is not already in db
+            continue
+        
+        company_name: str = row["Company Name"]
+        exchange: str = row["Exchange"]
+        current_price: float = row["Current Price"]
+        screening_status: str = row["Screening Status"]
+        market_cap: float = row["Market Cap"]
+        last_updated = row["Last Updated"]
+
+        
+
+
 
 def main():
   print("Hello world")
