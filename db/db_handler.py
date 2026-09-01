@@ -33,6 +33,7 @@ def migrate_watchlist(connection: sqlite3.Connection):
    inserted = 0 # keeps track of count of inserted data vals
 
    existing_tickers = {row["ticker"] for row in connection.execute("SELECT ticker FROM securities")}
+   sectors = {row["sector_name"] for row in connection.execute("SELECT sector_name FROM sectors")} 
 
    for _, row in df.iterrows():
 
@@ -44,12 +45,26 @@ def migrate_watchlist(connection: sqlite3.Connection):
         if ticker in existing_tickers:  # checks the data is not already in db
             continue
         
-        company_name: str = row["Name"] if pd.notna(row["Name"]) else "Unknown"
+        company_name: str = row["Company Name"] if pd.notna(row["Company Name"]) else "Unknown"
         exchange: str = row["Exchange"] if pd.notna(row["Exchange"]) else "Unknown"
         latest_price: float = (row["Latest Price"]) if pd.notna(row["Latest Price"]) else None
         screening_status: str = row["Screening Status"] if pd.notna(row["Screening Status"]) else "Watching"
         market_cap: float = (row["Market Cap"]) if "Market Cap" in row and pd.notna(row["Market Cap"]) else None
         last_updated = row["Last Updated"] if "Last Updated" in row and pd.notna(row["Last Updated"]) else None
+
+        cursor: sqlite3.Cursor = connection.execute("INSERT INTO securities (ticker, company_name, exchange, latest_price, screening_status, market_cap, last_updated) VALUES (?, ?, ?, ?, ?, ?, ?)",(ticker, company_name, exchange, latest_price, screening_status, market_cap, last_updated))
+        security_id = cursor.lastrowid
+
+        # to 'sectors' table
+        for sector in row["Sectors"].split(","):
+            sector: str = sector.strip()
+            if sector not in sectors:                       
+                cursor = connection.execute("INSERT INTO sectors (sector_name) VALUES (?)", (sector,)) 
+                sectors[sector] = cursor.lastrowid
+
+        # to 'security_x_sector' table
+        connection.execute("INSERT INTO security_x_sectors (security_id, sector_id) VALUES (?, ?)", (security_id, sectors[sector]))
+        inserted = inserted + 1
 
 
 
