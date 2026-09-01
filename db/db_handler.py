@@ -47,9 +47,9 @@ def migrate_watchlist(connection: sqlite3.Connection):
         
         company_name: str = row["Company Name"] if pd.notna(row["Company Name"]) else "Unknown"
         exchange: str = row["Exchange"] if pd.notna(row["Exchange"]) else "Unknown"
-        latest_price: float = (row["Latest Price"]) if pd.notna(row["Latest Price"]) else None
+        latest_price: float = float(row["Latest Price"]) if pd.notna(row["Latest Price"]) else None
         screening_status: str = row["Screening Status"] if pd.notna(row["Screening Status"]) else "Watching"
-        market_cap: float = (row["Market Cap"]) if "Market Cap" in row and pd.notna(row["Market Cap"]) else None
+        market_cap: float = float(row["Market Cap"]) if "Market Cap" in row and pd.notna(row["Market Cap"]) else None
         last_updated = row["Last Updated"] if "Last Updated" in row and pd.notna(row["Last Updated"]) else None
 
         cursor: sqlite3.Cursor = connection.execute("INSERT INTO securities (ticker, company_name, exchange, latest_price, screening_status, market_cap, last_updated) VALUES (?, ?, ?, ?, ?, ?, ?)",(ticker, company_name, exchange, latest_price, screening_status, market_cap, last_updated))
