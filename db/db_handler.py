@@ -22,9 +22,10 @@ def setup_db(connection: sqlite3.Connection):
 
   connection.commit()
 
-def display_db():
+def display_db(connection: sqlite3.Connection):
   """Display DB values through console"""
-  return 0
+  df = pd.read_sql_query("SELECT * FROM securities")
+  print(df)
 
 def migrate_watchlist(connection: sqlite3.Connection):
    """Migrate data from values in watchlist (csv) to the DB"""
@@ -66,9 +67,11 @@ def migrate_watchlist(connection: sqlite3.Connection):
             connection.execute("INSERT INTO security_x_sectors (security_id, sector_id) VALUES (?, ?)", (security_id, sectors[sector]))
             inserted = inserted + 1
 
-
    connection.commit()
    return inserted
+
+def refresh_data(connection: sqlite3.Connection):
+   return 0 
 
 
 
