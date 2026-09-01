@@ -1,0 +1,13 @@
+Ticker,Company Name,Exchange,Current Price,Sectors,Screening Status,Market Cap,Last updated
+NVDA,Nvidia Corp.,NASDAQ,220.5,Information Technology,Watching,,
+AAPL,Apple Inc.,NASDAQ,316.85,Information Technology,Watching,,
+JPM,JPMorgan Chase & Co.,NYSE,356.02,Financials,Watching,,
+V,Visa Inc.,NYSE,379.37,Financials,Watching,,
+META,Meta Platforms Inc.,NASDAQ,572.34,Communication Services,Watching,,
+NFLX,Netflix Inc.,NASDAQ,81.05,Communication Services,Watching,,
+LLY,Eli Lilly & Co.,NYSE,"1,156.73",Healthcare,Watching,,
+JNJ,Johnson & Johnson,NYSE,265.85,Healthcare,Watching,,
+CAT,Caterpillar Inc.,NYSE,797.47,Industrials,Watching,,
+COST,Costco Wholesale Corp.,NASDAQ,943.89,Consumer Staples,Watching,,
+XOM,Exxon Mobil Corp.,NYSE,160.95,Energy,Watching,,
+COP,ConocoPhillips,NYSE,132.49,Energy,Watching,,
