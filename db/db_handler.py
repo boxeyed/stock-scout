@@ -87,14 +87,13 @@ def refresh_data(connection: sqlite3.Connection):
 
 
 
-        
-
-
-
-
+      
 
 def main():
-  print("Hello world")
+  connection = get_connection()
+  setup_db(connection)
+  #migrate_watchlist(connection)
+  #refresh_data(connection)
   
 if __name__ == "__main__":
     main()
