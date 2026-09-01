@@ -63,8 +63,8 @@ def migrate_watchlist(connection: sqlite3.Connection):
                 sectors[sector] = cursor.lastrowid
 
         # to 'security_x_sector' table
-        connection.execute("INSERT INTO security_x_sectors (security_id, sector_id) VALUES (?, ?)", (security_id, sectors[sector]))
-        inserted = inserted + 1
+            connection.execute("INSERT INTO security_x_sectors (security_id, sector_id) VALUES (?, ?)", (security_id, sectors[sector]))
+            inserted = inserted + 1
 
 
    connection.commit()
