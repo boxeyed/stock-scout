@@ -67,6 +67,10 @@ def migrate_watchlist(connection: sqlite3.Connection):
         inserted = inserted + 1
 
 
+        connection.commit()
+        return inserted
+
+
 
 
         
