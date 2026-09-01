@@ -38,7 +38,7 @@ def migrate_watchlist(connection: sqlite3.Connection):
 
         # to 'securities' table
         ticker: str = row["Ticker"] if pd.notna(row["Ticker"]) else None
-        if ticker in existing_tickers:  # checks the data is not already in db
+        if ticker in existing_tickers or ticker is None:  # checks the data is not already in db / is not blank
             continue
         
         company_name: str = row["Name"] if pd.notna(row["Name"]) else "Unknown"
