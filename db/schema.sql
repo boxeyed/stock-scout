@@ -4,11 +4,11 @@ CREATE TABLE securities IF NOT EXISTS (
     id INTEGER AUTOINCREMENT PRIMARY KEY,
     ticker TEXT NOT NULL UNIQUE,
     company_name TEXT,
-    market_cap INTEGER,
     exchange TEXT,
+    current_price, DOUBLE,
+    screening_status TEXT DEFAULT "Watching",
+    market_cap INTEGER,
     last_updated DATE,
-    current_price, DOUBLE
-    screening_status TEXT DEFAULT "Watching"
 );
 
 CREATE TABLE sectors IF NOT EXISTS (
