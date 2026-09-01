@@ -33,7 +33,7 @@ def migrate_watchlist(connection: sqlite3.Connection):
    inserted = 0 # keeps track of count of inserted data vals
 
    existing_tickers = {row["ticker"] for row in connection.execute("SELECT ticker FROM securities")}
-   sectors = {row["sector_name"] for row in connection.execute("SELECT sector_name FROM sectors")} 
+   sectors = {row["sector_name"] : row["id"] for row in connection.execute("SELECT sector_name, id FROM sectors")} 
 
    for _, row in df.iterrows():
 
