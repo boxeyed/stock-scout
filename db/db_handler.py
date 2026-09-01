@@ -37,18 +37,23 @@ def migrate_watchlist(connection: sqlite3.Connection):
    for _, row in df.iterrows():
 
         # to 'securities' table
-        ticker: str = row["Ticker"]
+        ticker: str = row["Ticker"] if pd.notna(row["Ticker"]) else None
         if ticker in existing_tickers:  # checks the data is not already in db
             continue
         
-        company_name: str = row["Company Name"]
-        exchange: str = row["Exchange"]
-        current_price: float = row["Current Price"]
-        screening_status: str = row["Screening Status"]
-        market_cap: float = row["Market Cap"]
-        last_updated = row["Last Updated"]
+        company_name: str = row["Name"] if pd.notna(row["Name"]) else "Unknown"
+        exchange: str = row["Exchange"] if pd.notna(row["Exchange"]) else "Unknown"
+        latest_price: float = (row["Latest Price"]) if pd.notna(row["Latest Price"]) else None
+        screening_status: str = row["Screening Status"] if pd.notna(row["Screening Status"]) else "Watching"
+        market_cap: float = (row["Market Cap"]) if "Market Cap" in row and pd.notna(row["Market Cap"]) else None
+        last_updated = row["Last Updated"] if "Last Updated" in row and pd.notna(row["Last Updated"]) else None
+
+
+
 
         
+
+
 
 
 
