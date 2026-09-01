@@ -18,7 +18,7 @@ def setup_db(connection: sqlite3.Connection):
   cursor = connection.cursor()
 
   with open(SCHEMA) as p:
-     cursor.executescript(p.read)
+     cursor.executescript(p.read())
 
   connection.commit()
 
