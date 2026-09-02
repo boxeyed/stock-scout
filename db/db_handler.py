@@ -6,7 +6,6 @@ from schema import SCHEMA
 
 DATABASE = "scout.db"
 WATCHLIST = "watchlist.csv"
-SCHEMA = "schema.sql"
 
 def get_connection():
     connection = sqlite3.connect(DATABASE)
