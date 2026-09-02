@@ -5,7 +5,7 @@ import numpy as np
 from schema import SCHEMA
 
 DATABASE = "scout.db"
-WATCHLIST = "watchlist.csv"
+WATCHLIST = "csv/watchlist.csv"
 
 def get_connection():
     connection = sqlite3.connect(DATABASE)
@@ -49,7 +49,7 @@ def migrate_watchlist(connection: sqlite3.Connection):
         market_cap: float = float(row["Market Cap"]) if "Market Cap" in row and pd.notna(row["Market Cap"]) else None
         last_updated = row["Last Updated"] if "Last Updated" in row and pd.notna(row["Last Updated"]) else None
 
-        cursor: sqlite3.Cursor = connection.execute("INSERT INTO securities (ticker, company_name, exchange, current_price, screening_status, market_cap, last_updated) VALUES (?, ?, ?, ?, ?, ?, ?)",(ticker, company_name, exchange, latest_price, screening_status, market_cap, last_updated))
+        cursor: sqlite3.Cursor = connection.execute("INSERT INTO securities (ticker, company_name, exchange, current_price, screening_status, market_cap, last_updated) VALUES (?, ?, ?, ?, ?, ?, ?)",(ticker, company_name, exchange, current_price, screening_status, market_cap, last_updated))
         security_id = cursor.lastrowid
 
         # to 'sectors' table
@@ -60,7 +60,7 @@ def migrate_watchlist(connection: sqlite3.Connection):
                 sectors[sector] = cursor.lastrowid
 
         # to 'security_x_sector' table
-            connection.execute("INSERT INTO security_x_sectors (security_id, sector_id) VALUES (?, ?)", (security_id, sectors[sector]))
+            connection.execute("INSERT INTO security_x_sector (security_id, sector_id) VALUES (?, ?)", (security_id, sectors[sector]))
             inserted = inserted + 1
 
    connection.commit()
@@ -88,7 +88,7 @@ def refresh_data(connection: sqlite3.Connection):
 def main():
   connection = get_connection()
   setup_db(connection)
-  #migrate_watchlist(connection)
+  migrate_watchlist(connection)
   #refresh_data(connection)
   
 if __name__ == "__main__":
