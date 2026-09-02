@@ -3,7 +3,7 @@
 # Usage: import where a fresh database must be setup and execute the schema script.
 
 SCHEMA = '''CREATE TABLE IF NOT EXISTS securities (
-    id INTEGER AUTOINCREMENT PRIMARY KEY,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
     ticker TEXT NOT NULL UNIQUE,
     company_name TEXT,
     exchange TEXT,
@@ -14,7 +14,7 @@ SCHEMA = '''CREATE TABLE IF NOT EXISTS securities (
 );
 
 CREATE TABLE IF NOT EXISTS sectors(
-    id INTEGER AUTOINCREMENT PRIMARY KEY,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
     sector_name TEXT NOT NULL UNIQUE
 );
 
