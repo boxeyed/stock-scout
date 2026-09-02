@@ -2,7 +2,8 @@
 # Moved to .py file to avoid complications with file paths.
 # Usage: import where a fresh database must be setup and execute the schema script.
 
-SCHEMA = '''CREATE TABLE IF NOT EXISTS securities (
+SCHEMA = '''
+CREATE TABLE IF NOT EXISTS securities(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     ticker TEXT NOT NULL UNIQUE,
     company_name TEXT,
@@ -10,7 +11,7 @@ SCHEMA = '''CREATE TABLE IF NOT EXISTS securities (
     current_price, DOUBLE,
     screening_status TEXT DEFAULT "Watching",
     market_cap INTEGER,
-    last_updated DATE,
+    last_updated DATE
 );
 
 CREATE TABLE IF NOT EXISTS sectors(
