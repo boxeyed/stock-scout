@@ -1,6 +1,8 @@
--- Similar shape to lab scout, reassess need for changes after basic handling completed.
+# Similar shape to lab scout, reassess need for changes after basic handling completed.
+# Moved to .py file to avoid complications with file paths.
+# Usage: import where a fresh database must be setup and execute the schema script.
 
-CREATE TABLE securities IF NOT EXISTS (
+SCHEMA = '''CREATE TABLE securities IF NOT EXISTS (
     id INTEGER AUTOINCREMENT PRIMARY KEY,
     ticker TEXT NOT NULL UNIQUE,
     company_name TEXT,
@@ -22,4 +24,4 @@ CREATE TABLE security_x_sector IF NOT EXISTS(
     PRIMARY KEY (security_id, sector_id)
     FOREIGN KEY (security_id) REFERENCES securities(id) ON DELETE CASCADE,
     FOREIGN KEY (sector_id) REFERENCES sectors(id) ON DELETE CASCADE
-);
+);'''
