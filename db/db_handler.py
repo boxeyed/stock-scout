@@ -2,6 +2,7 @@ import yfinance as yf
 import sqlite3
 import pandas as pd
 import numpy as np
+from schema import SCHEMA
 
 DATABASE = "scout.db"
 WATCHLIST = "watchlist.csv"
@@ -15,11 +16,7 @@ def get_connection():
 
 def setup_db(connection: sqlite3.Connection):
   """Establish connection to DB and setup"""
-  cursor = connection.cursor()
-
-  with open(SCHEMA) as p:
-     cursor.executescript(p.read())
-
+  connection.executescript(SCHEMA)
   connection.commit()
 
 def display_db(connection: sqlite3.Connection):
