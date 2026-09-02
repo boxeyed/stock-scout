@@ -73,11 +73,11 @@ def refresh_data(connection: sqlite3.Connection):
 
    for ticker in tickers:
       refresh = yf.Ticker(ticker).fast_info
-      latest_price = refresh.get("currentPrice")
+      current_price = refresh.get("currentPrice")
       market_cap = refresh.get("marketCap")
       last_updated = refresh.get("regularMarketTime")
 
-      connection.execute("UPDATE securities (latest_price, market_cap, last_updated) VALUES (?, ?, ?)",(latest_price, market_cap, last_updated))
+      connection.execute("UPDATE securities SET current_price = ?, market_cap = ?, last_updated = ?",(current_price, market_cap, last_updated))
    return 0 
 
 
@@ -89,7 +89,7 @@ def main():
   connection = get_connection()
   setup_db(connection)
   migrate_watchlist(connection)
-  #refresh_data(connection)
+  refresh_data(connection)
   
 if __name__ == "__main__":
     main()
