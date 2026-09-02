@@ -78,6 +78,7 @@ def refresh_data(connection: sqlite3.Connection):
       last_updated = refresh.get("regularMarketTime")
 
       connection.execute("UPDATE securities SET current_price = ?, market_cap = ?, last_updated = ?",(current_price, market_cap, last_updated))
+      # note: there is no link to each security id as to update each row. figure this out
    return 0 
 
 
