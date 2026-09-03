@@ -66,20 +66,17 @@ def migrate_watchlist(connection: sqlite3.Connection):
    connection.commit()
    return inserted
 
-def refresh_data(connection: sqlite3.Connection):
-   """Pull data from yfinance to populate current_price and market_cap for each ticker in db."""
+def refresh_watchlist(connection: sqlite3.Connection):
+   """Pull data from yfinance to populate current_price and market_cap for each ticker in watchlist."""
    refreshed = 0
-   tickers = {row["ticker"] for row in connection.execute("SELECT ticker FROM securities")}
 
-   for ticker in tickers:
-      refresh = yf.Ticker(ticker).fast_info
-      current_price = refresh.get("currentPrice")
-      market_cap = refresh.get("marketCap")
-      last_updated = refresh.get("regularMarketTime")
+   watchlist_df = pd.read_csv(WATCHLIST)
 
-      connection.execute("UPDATE securities SET current_price = ?, market_cap = ?, last_updated = ?",(current_price, market_cap, last_updated))
-      # note: there is no link to each security id as to update each row. figure this out
-   return 0 
+   for index, row in watchlist_df.iterrows():
+      print(row["Ticker"])
+      
+
+   return refreshed 
 
 
 
@@ -90,7 +87,7 @@ def main():
   connection = get_connection()
   setup_db(connection)
   migrate_watchlist(connection)
-  refresh_data(connection)
+  refresh_watchlist(connection)
   
 if __name__ == "__main__":
     main()
