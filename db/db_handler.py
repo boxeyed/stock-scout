@@ -67,7 +67,7 @@ def migrate_watchlist(connection: sqlite3.Connection):
    return inserted
 
 def refresh_watchlist(connection: sqlite3.Connection):
-   """Pull data from yfinance to populate current_price, market_cap, last_updated for each ticker in watchlist."""
+   """Pull data from yfinance to populate current_price, market_cap, last_updated for each ticker in watchlist.csv."""
    refreshed = 0
 
    watchlist_df = pd.read_csv(WATCHLIST)
@@ -90,13 +90,11 @@ def refresh_watchlist(connection: sqlite3.Connection):
 
       refreshed+=1
 
+   # save back to original csv
    watchlist_df.to_csv(WATCHLIST)
    return refreshed 
 
 
-
-
-      
 
 def main():
   connection = get_connection()
