@@ -1,7 +1,7 @@
 import yfinance as yf
 import sqlite3
 import pandas as pd
-import numpy as np
+from datetime import datetime, timezone
 from schema import SCHEMA
 
 DATABASE = "scout.db"
@@ -67,7 +67,7 @@ def migrate_watchlist(connection: sqlite3.Connection):
    return inserted
 
 def refresh_watchlist(connection: sqlite3.Connection):
-   """Pull data from yfinance to populate current_price and market_cap for each ticker in watchlist."""
+   """Pull data from yfinance to populate current_price, market_cap, last_updated for each ticker in watchlist."""
    refreshed = 0
 
    watchlist_df = pd.read_csv(WATCHLIST)
@@ -80,7 +80,10 @@ def refresh_watchlist(connection: sqlite3.Connection):
       market_cap = ticker.info.get("marketCap")
       current_price = ticker.info.get("currentPrice")
 
-      # get current time
+      # get latest updated (time)
+      latest_updated =  datetime.now(timezone.utc) + " " + datetime.now(timezone.utc).tzname()
+
+      
       
       
 
