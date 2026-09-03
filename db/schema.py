@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS securities(
     ticker TEXT NOT NULL UNIQUE,
     company_name TEXT,
     exchange TEXT,
-    current_price, DOUBLE,
+    current_price DOUBLE,
     screening_status TEXT DEFAULT "Watching",
     market_cap INTEGER,
     last_updated DATE
