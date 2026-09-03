@@ -81,7 +81,7 @@ def refresh_watchlist(connection: sqlite3.Connection):
       current_price = ticker.info.get("currentPrice")
 
       # get last updated (time)
-      last_updated =  datetime.now(timezone.utc) + " " + datetime.now(timezone.utc).tzname()
+      last_updated =  "" + str(datetime.now(timezone.utc)) + " " + str(datetime.now(timezone.utc).tzname())
 
       # edit the watchlist.csv's corresponding values
       watchlist_df.at[index, "Market Cap"] = market_cap
@@ -90,6 +90,7 @@ def refresh_watchlist(connection: sqlite3.Connection):
 
       refreshed+=1
 
+   watchlist_df.to_csv()
    return refreshed 
 
 
@@ -100,8 +101,8 @@ def refresh_watchlist(connection: sqlite3.Connection):
 def main():
   connection = get_connection()
   setup_db(connection)
-  migrate_watchlist(connection)
   refresh_watchlist(connection)
+  migrate_watchlist(connection)
   
 if __name__ == "__main__":
     main()
