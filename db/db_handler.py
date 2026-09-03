@@ -90,7 +90,7 @@ def refresh_watchlist(connection: sqlite3.Connection):
 
       refreshed+=1
 
-   watchlist_df.to_csv()
+   watchlist_df.to_csv(WATCHLIST)
    return refreshed 
 
 
