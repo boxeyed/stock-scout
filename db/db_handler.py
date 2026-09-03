@@ -73,7 +73,15 @@ def refresh_watchlist(connection: sqlite3.Connection):
    watchlist_df = pd.read_csv(WATCHLIST)
 
    for index, row in watchlist_df.iterrows():
-      print(row["Ticker"])
+      # Get ticker object to pull corresponding data from yfinance
+      ticker = yf.Ticker((row["Ticker"]))
+
+      # pull data according to yfinance
+      market_cap = ticker.info.get("marketCap")
+      current_price = ticker.info.get("currentPrice")
+
+      # get current time
+      
       
 
    return refreshed 
