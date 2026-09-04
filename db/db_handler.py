@@ -20,7 +20,7 @@ def setup_db(connection: sqlite3.Connection):
 
 def display_db(connection: sqlite3.Connection):
   """Display DB values through console"""
-  df = pd.read_sql_query("SELECT * FROM securities")
+  df = pd.read_sql_query("SELECT * FROM securities", connection)
   print(df)
 
 def migrate_watchlist(connection: sqlite3.Connection):
