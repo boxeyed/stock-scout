@@ -64,6 +64,7 @@ def migrate_watchlist(connection: sqlite3.Connection):
             inserted = inserted + 1
 
    connection.commit()
+   print("Migration complete.")
    return inserted
 
 def refresh_watchlist(connection: sqlite3.Connection):
@@ -92,6 +93,7 @@ def refresh_watchlist(connection: sqlite3.Connection):
 
    # save back to original csv
    watchlist_df.to_csv(WATCHLIST)
+   print("Watchlist refreshed.")
    return refreshed 
 
 
