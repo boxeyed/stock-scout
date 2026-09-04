@@ -103,6 +103,7 @@ def main():
   setup_db(connection)
   refresh_watchlist(connection)
   migrate_watchlist(connection)
+  display_db(connection)
   
 if __name__ == "__main__":
     main()
