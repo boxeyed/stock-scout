@@ -67,10 +67,6 @@ def migrate_watchlist(connection: sqlite3.Connection):
    print("Migration complete.")
    return inserted
 
-def update_db(connection: sqlite3.Connection):
-   """Used in tandem with migrate_watchlist(). Updates existing tickers in the database."""
-   return 0
-
 def refresh_watchlist(connection: sqlite3.Connection):
    """Pull data from yfinance to populate current_price, market_cap, last_updated for each ticker in watchlist.csv."""
    refreshed = 0
