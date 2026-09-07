@@ -68,32 +68,23 @@ def migrate_watchlist(connection: sqlite3.Connection):
    return inserted
 
 def refresh_watchlist(connection: sqlite3.Connection):
-   """Pull data from yfinance to populate current_price, market_cap, last_updated for each ticker in watchlist.csv."""
+   """Pull data from yfinance to populate current_price, market_cap, last_updated for each ticker in db."""
    refreshed = 0
+   
+   last_updated =  int((datetime.now(timezone.utc)).timestamp())
+   tickers = {row["ticker"] for row in connection.execute("SELECT ticker FROM securities")}
 
-   watchlist_df = pd.read_csv(WATCHLIST)
-
-   for index, row in watchlist_df.iterrows():
-      # Get ticker object to pull corresponding data from yfinance
-      ticker = yf.Ticker((row["Ticker"]))
-
-      # pull data according to yfinance
-      market_cap = ticker.info.get("marketCap")
-      current_price = ticker.info.get("currentPrice")
-
-      # get last updated (time) -> epoch to avoid information loss
-      last_updated =  int((datetime.now(timezone.utc)).timestamp())
-
-      # edit the watchlist.csv's corresponding values
-      watchlist_df.at[index, "Market Cap"] = market_cap
-      watchlist_df.at[index, "Current Price"] = current_price
-      watchlist_df.at[index, "Last Updated"] = last_updated
-
+   for ticker in tickers:
+      try:
+         current_price = yf.Ticker(ticker).info.get("currentPrice")
+         market_cap = yf.Ticker(ticker).info.get("marketCap")
+      except Exception as e:
+         print(f"{e} failed pull, moving onto next ticker.")
+         continue
+      connection.execute("UPDATE securities set current_price = ?, market_cap = ?, last_updated = ? WHERE ticker = ?", (current_price, market_cap, last_updated, ticker))
       refreshed+=1
-
-   # save back to original csv
-   watchlist_df.to_csv(WATCHLIST, index=False)
-   print("Watchlist refreshed.")
+      
+   connection.commit()
    return refreshed 
 
 
@@ -101,8 +92,8 @@ def refresh_watchlist(connection: sqlite3.Connection):
 def main():
   connection = get_connection()
   setup_db(connection)
-  refresh_watchlist(connection)
   migrate_watchlist(connection)
+  refresh_watchlist(connection)
   display_db(connection)
   
 if __name__ == "__main__":
