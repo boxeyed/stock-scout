@@ -67,11 +67,6 @@ def migrate_watchlist(connection: sqlite3.Connection):
    print("Migration complete.")
    return inserted
 
-def refresh_database(connection: sqlite3.Connection):
-   """Pull data from yfinance to populate current_price, market_cap, last_updated for each ticker in db."""
-   refreshed = 0
-   return refreshed 
-
 def clear_db(connection: sqlite3.Connection):
    """Wipes the database after confirmation from user."""
    to_wipe = input("Wipe database? Type 'YES' to confirm.")
