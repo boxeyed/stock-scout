@@ -3,10 +3,6 @@ import sqlite3
 import pandas as pd
 import db.db_handler as dbh
 
-def display_db(connection: sqlite3.Connection):
-  """Display DB values through console"""
-  df = pd.read_sql_query("SELECT * FROM securities", connection)
-  print(df)
 
 def refresh_db(connection: sqlite3.Connection):
   return 0

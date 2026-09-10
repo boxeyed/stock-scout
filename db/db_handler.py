@@ -76,13 +76,15 @@ def clear_db(connection: sqlite3.Connection):
                                """)
       return True
 
-
+def display_db(connection: sqlite3.Connection):
+  """Display DB values through console"""
+  df = pd.read_sql_query("SELECT * FROM securities", connection)
+  print(df)
 
 def main():
   connection = get_connection()
   setup_db(connection)
   migrate_watchlist(connection)
-  display_db(connection)
   
 if __name__ == "__main__":
     main()
