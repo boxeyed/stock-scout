@@ -72,13 +72,27 @@ def refresh_database(connection: sqlite3.Connection):
    refreshed = 0
    return refreshed 
 
+def clear_db(connection: sqlite3.Connection):
+   """Wipes the database after confirmation from user."""
+   to_wipe = input("Wipe database? Type 'YES' to confirm.")
+
+   if(to_wipe != "YES"):
+      return False
+   else:
+      connection.executescript("""
+      DELETE FROM securities;
+      DELETE FROM sectors;
+      DELETE FROM security_x_sector;
+                               """)
+      return True
+
 
 
 def main():
   connection = get_connection()
   setup_db(connection)
   migrate_watchlist(connection)
-  refresh_watchlist(connection)
+  refresh_database(connection)
   display_db(connection)
   
 if __name__ == "__main__":
