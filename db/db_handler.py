@@ -18,11 +18,6 @@ def setup_db(connection: sqlite3.Connection):
   connection.executescript(SCHEMA)
   connection.commit()
 
-def display_db(connection: sqlite3.Connection):
-  """Display DB values through console"""
-  df = pd.read_sql_query("SELECT * FROM securities", connection)
-  print(df)
-
 def migrate_watchlist(connection: sqlite3.Connection):
    """Migrate data from values in watchlist (csv) to the DB"""
 
@@ -87,7 +82,6 @@ def main():
   connection = get_connection()
   setup_db(connection)
   migrate_watchlist(connection)
-  refresh_database(connection)
   display_db(connection)
   
 if __name__ == "__main__":
