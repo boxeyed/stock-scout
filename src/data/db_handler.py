@@ -5,7 +5,7 @@ from datetime import datetime, timezone
 from schema import SCHEMA
 
 DATABASE = "scout.db"
-WATCHLIST = "csv/watchlist.csv"
+WATCHLIST = "src/data/watchlist.csv"
 
 def get_connection():
     connection = sqlite3.connect(DATABASE)
