@@ -1,7 +1,7 @@
 import yfinance as yf
 import sqlite3
 import pandas as pd
-import db.db_handler as dbh
+import data.db_handler as dbh
 
 
 def refresh_db(connection: sqlite3.Connection):

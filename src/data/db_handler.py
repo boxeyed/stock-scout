@@ -2,7 +2,7 @@ import yfinance as yf
 import sqlite3
 import pandas as pd
 from datetime import datetime, timezone
-from schema import SCHEMA
+from data.schema import SCHEMA
 
 DATABASE = "scout.db"
 WATCHLIST = "src/data/watchlist.csv"
