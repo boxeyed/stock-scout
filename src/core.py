@@ -13,10 +13,15 @@ def add_security_manual(connection: sqlite3.Connection):
 def add_security_auto(connection: sqlite3.Connection):
   """Prompts user to input a ticker to fill row with yfinance data."""
 
-  while(True):
-    ticker_input = input("Please enter ticker value to auto-populate database fields: ")
+  ticker_input = input("Please enter ticker value to auto-populate database fields: ")
+  try:
+      ticker = yf.Ticker(ticker_input)
+      ticker = ticker.info
+  except:
+      print(f"Cannot get {ticker_input} values. Try again.")
+    
+  return 0
 
-   # Check validity of user input
 
 
 def scout_securities(connection: sqlite3.Connection):
